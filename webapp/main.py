@@ -12,9 +12,9 @@ app = FastAPI()
 openai.api_base = os.getenv("OPENAI_API_BASE")  # Your Azure OpenAI resource's endpoint value.
 openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.api_type = "azure"
-openai.api_version = "2023-05-15" 
+openai.api_version = "2024-02-01" 
 
-embeddings = OpenAIEmbeddings(deployment="demo-embedding", chunk_size=1)
+embeddings = OpenAIEmbeddings(deployment="demo-search", chunk_size=1)
 
 # Connect to Azure Cognitive Search
 acs = AzureSearch(azure_search_endpoint=os.getenv('SEARCH_SERVICE_NAME'),
@@ -70,7 +70,7 @@ def assistant(query, context):
     ]
 
     response = openai.ChatCompletion.create(
-        engine="demo-alfredo",
+        engine="azure_demo_first",
         messages=messages,
     )
     return response['choices'][0]['message']['content']
